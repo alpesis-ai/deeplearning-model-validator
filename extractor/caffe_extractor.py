@@ -67,4 +67,5 @@ if __name__ == "__main__":
     net = caffe.Net(args.net, args.model, caffe.TEST)
     extract_model(net, args.modelpath)
     extract_weights(net, args.modelpath)
+    net.forward()
     extract_outputs(net, args.outpath)
