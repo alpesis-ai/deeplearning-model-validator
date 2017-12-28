@@ -101,12 +101,7 @@ def extract_weights(net, filepath):
         for index in range(len(blobs)):
             print "- ", name, blobs[index].data.shape
             this_name = str(name.replace("/", "_"))
-            if index == 0:
-                filename = filepath + "weights_" + this_name + "_w.bin" 
-            elif index == 1:
-                filename = filepath + "weights_" + this_name + "_b.bin"
-            else:
-                filename = filepath + "weights_" + this_name + ".bin"
+            filename = filepath + "weights_" + this_name + "_" + str(index) + ".bin"
 
             this_tensor = TM.TensorFloat()
             dim = len(blobs[index].data.shape)
