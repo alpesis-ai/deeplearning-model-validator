@@ -12,6 +12,11 @@ from extractor.extractor_caffe import CaffeExtractor
 def get_args():
     parser = argparse.ArgumentParser("DeepLearning Model Validator")
 
+    parser.add_argument('--netname', dest="netname",
+                                     type=str,
+                                     required=True,
+                                     help="Net name")
+
     parser.add_argument('--framework', dest="framework",
                                        type=str,
                                        required=True,
@@ -52,7 +57,7 @@ if __name__ == '__main__':
     args = get_args()
 
     if args.framework == 'caffe':
-        if (args.modulepath):
+        if (args.netname == 'fasterrcnn'):
             sys.path.append(args.caffepath)
             sys.path.append(args.modulepath)
             sys.path.append(args.modulepath + "lib/")
@@ -67,7 +72,7 @@ if __name__ == '__main__':
             import caffe
             net = caffe.Net(args.netproto, args.model, caffe.TEST)
 
-        extractor = CaffeExtractor(net, args.netproto, args.model, args.outpath)
+        extractor = CaffeExtractor(net, args.netname, args.netproto, args.model, args.outpath)
         extractor.extract_model()
         extractor.extract_weights()
         extractor.extract_outputs()

@@ -28,6 +28,7 @@ Caffe
 
     # lenet
     $ python validator.main.py \
+      --netname lenet \
       --framework caffe \
       --caffepath <path/to/caffe/python> \
       --netproto <path/to/net/prototxt> \
@@ -36,6 +37,7 @@ Caffe
 
     # fasterrcnn
     $ python validator.main.py \
+      --netname fasterrcnn \
       --framework caffe \
       --caffepath <path/to/caffe/python> \
       --modulepath <path/to/fasterrcnn> \
