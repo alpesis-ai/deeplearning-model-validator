@@ -1,34 +1,40 @@
 import ctypes
+import unittest
 
-import tensor_and_model as TM
+import data.model
+import data.tensor
 
 
-def test_model():
+class ModelTests(unittest.TestCase):
 
-    model = TM.Model()
-    model.layer_size = 2
-    model.layers = (2 * TM.ModelLayer)()
-    model.layers[0].index = 0
-    model.layers[0].type = TM.conv
-    model.layers[0].weights = TM.TensorFloat()
-    model.layers[0].weights.shape.n = 1
-    model.layers[0].weights.shape.channels = 2
-    model.layers[0].weights.shape.height = 3
-    model.layers[0].weights.shape.width = 4
-    model.layers[0].weights.capacity = 1*2*3*4
-    model.layers[0].weights.data = (model.layers[0].weights.capacity * ctypes.c_float)()
+    def setUp(self):
+        pass
 
-    model.layers[1].index = 1
-    model.layers[1].type = TM.relu
+    def test_model(self):
+
+        model = data.model.Model()
+        model.layer_size = 2
+        model.layers = (2 * data.model.ModelLayer)()
+        model.layers[0].index = ctypes.c_int(0)
+        model.layers[0].type = data.model.conv
+        weights = data.tensor.TensorFloat()
+        weights.shape.n = 1
+        weights.shape.channels = 2
+        weights.shape.height = 3
+        weights.shape.width = 4
+        weights.capacity = 1*2*3*4
+        # weights.data = (model.layers[0].weights.capacity * ctypes.c_float)()
+
+        model.layers[1].index = 1
+        model.layers[1].type = data.model.relu
    
-
-    print(model.layer_size)
-    print(model.layers[0].index)
-    print(model.layers[0].type)
-    print(model.layers[1].index)
-    print(model.layers[1].type)
+        self.assertEqual(model.layer_size, 2)
+        self.assertEqual(model.layers[0].index, 0)
+        self.assertEqual(model.layers[0].type, 0)
+        self.assertEqual(model.layers[1].index, 1)
+        self.assertEqual(model.layers[1].type, 2)
 
 
 if __name__ == '__main__':
 
-    test_model()
+    unittest.main()
